@@ -1,7 +1,9 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.7'
+    id 'org.springframework.boot' version '2.5.7'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'jacoco'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
 group = 'me.ssu'
@@ -16,6 +18,30 @@ configurations {
 
 repositories {
 	mavenCentral()
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+bootJar {
+    dependsOn asciidoctor
+    copy {
+        from "${asciidoctor.outputDir}"
+        into 'BOOT-INF/classes/static/docs'
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2020.0.5'
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/milestone" }
+    maven { url "https://repo.spring.io/snapshot" }
 }
 
 dependencies {
@@ -60,6 +86,16 @@ dependencies {
     implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
 
+    // Querydsl
+    implementation "com.querydsl:querydsl-jpa:4.4.0"
+    implementation "com.querydsl:querydsl-core:4.4.0"
+    implementation 'org.jetbrains:annotations:20.1.0'
+    annotationProcessor "com.querydsl:querydsl-apt:4.4.0:jpa"
+
+    // querydsl JPAAnnotationProcessor 사용 지정
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api:2.2.3'
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api:1.3.5'
+
     // Object mapper
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.2'
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
@@ -80,6 +116,52 @@ dependencies {
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1' //RW/RO datasource 환경에서 사용불가
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+test {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+    finalizedBy 'jacocoTestReport'
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.enabled false
+    }
+}
+
+jar {
+    enabled = false
+}
+
+asciidoctor {
+    attributes 'snippets': snippetsDir
+    inputs.dir snippetsDir
+    sources {
+        include '**/index.adoc'
+    }
+    baseDirFollowsSourceFile()
+    dependsOn test
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+    from file('build/docs/asciidoc')
+    into file('src/main/resources/static/docs')
+}
+
+build {
+    dependsOn copyDocument
+}
+
+clean {
+    delete file('build/generated-snippets')
 }
