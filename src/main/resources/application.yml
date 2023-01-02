@@ -47,3 +47,58 @@ spring:
     elasticsearch:
       repositories:
         enabled: false
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+
+server:
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  error:
+    whitelabel.enabled: false
+  shutdown: graceful
+
+management:
+  health:
+    redis:
+      enabled: false
+  endpoint:
+    health:
+      enabled: true
+
+springdoc:
+  swagger-ui:
+    groups-order: ASC
+    operationsSorter: method
+    path: /api-docs/swagger-ui
+  packages-to-scan: me.ssu.querydslspringrestapi.domains
+  paths-to-match: /v1/**
+  use-fqn: true
+  model-and-view-allowed: true
+  api-docs:
+    enabled: false
+
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 20000
+        readTimeout: 30000
+        loggerLevel: NONE
+        decoder: feign.gson.GsonDecoder
+
+logging:
+  level:
+    root: off
