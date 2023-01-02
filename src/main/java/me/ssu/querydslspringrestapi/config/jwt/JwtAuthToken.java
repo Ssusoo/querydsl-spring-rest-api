@@ -2,16 +2,23 @@ package me.ssu.querydslspringrestapi.config.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import me.ssu.querydslspringrestapi.config.constant.CommonConstant;
 import me.ssu.querydslspringrestapi.config.constant.JwtPayloadKey;
+import me.ssu.querydslspringrestapi.config.util.HttpUtil;
+import me.ssu.querydslspringrestapi.config.util.StringUtil;
+import me.ssu.querydslspringrestapi.config.util.dto.ApiInfo;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
 
 @Slf4j
 public class JwtAuthToken implements AuthToken<Claims> {
@@ -23,6 +30,51 @@ public class JwtAuthToken implements AuthToken<Claims> {
 	JwtAuthToken(String token, Key key) {
 		this.token = token;
 		this.key = key;
+	}
+
+	JwtAuthToken(TokenPayload dto, Key key) {
+		this.key = key;
+
+		Optional<String> value = createJwtAuthToken(dto);
+		this.token = value.orElse(null);
+	}
+
+	private Optional<String> createJwtAuthToken(TokenPayload dto) {
+		var expiredDate = Date.from(LocalDateTime.now()
+				.plusMinutes(CommonConstant.Jwt.TOKEN_EXPIRED_MINUTES)
+				.atZone(ZoneId.systemDefault()).toInstant());
+		var host = "";
+		var req = HttpUtil.getHttpServletRequest();
+		if (req != null) {
+			host = req.getHeader("host");
+		}
+
+		// API 메타정보
+		String serverInstanceId = null;
+		try {
+			var apiInfo = ApiInfo.makeResponseApiInfo((ApiInfo) HttpUtil.getRequestAttribute("apiInfo"));
+			if (StringUtil.isNotEmpty(apiInfo.getServerInstanceId())) {
+				serverInstanceId = apiInfo.getServerInstanceId();
+			}
+		} catch (Exception e) {
+			serverInstanceId = host;
+		}
+
+		var claims = Jwts.claims();
+		claims.put(JwtPayloadKey.MANAGER_ACCOUNT_SERIAL_NO.getKey(), dto.getManagerAccountSerialNo());
+		claims.put(JwtPayloadKey.MEMBER_EMAIL.getKey(), dto.getMemberEmail());
+		claims.put(JwtPayloadKey.MEMBER_NAME.getKey(),  URLEncoder.encode(dto.getMemberName(), StandardCharsets.UTF_8));
+		claims.put(JwtPayloadKey.ROLES.getKey(), dto.getRoles());
+		claims.put(JwtPayloadKey.MANAGER_MENU_GROUP_ID.getKey(), dto.getManagerMenuGroupId());
+
+		return Optional.ofNullable(Jwts.builder()
+				.setIssuer(serverInstanceId)
+				.setAudience(dto.getMemberEmail())
+				.addClaims(claims)
+				.setIssuedAt(new Date())
+				.setExpiration(expiredDate)
+				.signWith(key, SignatureAlgorithm.HS256)
+				.compact());
 	}
 
 	@Override
