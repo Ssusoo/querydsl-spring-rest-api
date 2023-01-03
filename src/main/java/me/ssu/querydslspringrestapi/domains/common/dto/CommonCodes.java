@@ -21,7 +21,7 @@ public class CommonCodes {
 
 	@Getter
 	@AllArgsConstructor(access = AccessLevel.PUBLIC)
-	public static class Result {
+	public static class Response {
 		@Schema(description = "공통 코드 목록")
 		private final List<CommonCode> codes;
 	}
