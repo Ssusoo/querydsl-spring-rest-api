@@ -2,6 +2,10 @@ server:
   port: 8080
 
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springrestapi
+    username: ssu
+    password: 1234
   jpa:
     properties:
       hibernate:
