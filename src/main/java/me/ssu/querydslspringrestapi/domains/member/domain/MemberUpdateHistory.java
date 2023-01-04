@@ -5,7 +5,6 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "ssu_mem_upd_hist")
@@ -25,25 +24,13 @@ public class MemberUpdateHistory {
 	private MemberMaster memberMaster; // 회원_일련번호
 
 	@Column(name = "mem_email", length = 200, nullable = false)
-	private String memberEmail;
-
-	@Column(name = "birthymd")
-	private Date birthDate; // 생년월일
+	private String memberEmail; // 회원_이메일
 
 	@Column(name = "mem_gndr_flag", length = 1)
 	private String memberGenderFlag; // 회원_성별_플래그
 
-	@Column(name = "mem_telno", length = 20)
-	private String memberTelephoneNumber; // 회원_전화번호
-
 	@Column(name = "mem_mobile_telno", length = 20)
 	private String memberMobileTelephoneNumber; // 회원_모바일_전화번호
-
-	@Column(name = "legal_guardian_nm", length = 100)
-	private String legalGuardianName; // 법적_보호자_이름
-
-	@Column(name = "legal_guardian_mp_telno", length = 20)
-	private String legalGuardianMobilePhoneTelephoneNumber;  // 법적_보호자_휴대폰_전화번호
 
 	@Column(name = "bas_addr", length = 200)
 	private String basicAddress; // 기본_주소
