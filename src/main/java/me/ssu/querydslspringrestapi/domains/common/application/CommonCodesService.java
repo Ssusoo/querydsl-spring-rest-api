@@ -37,7 +37,7 @@ public class CommonCodesService {
 	/**
 	 * 서버 초기 구동 시 전체 코드를 가져온다.
 	 */
-	@PostConstruct
+//	@PostConstruct
 	public void fetchCodeList() {
 		fetch();
 	}
