@@ -21,7 +21,7 @@ public class TermsAgreementHistory {
 
 	// 회원 Entity 생성 후 주석 해제
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "himm_mem_serlno", nullable = false, updatable = false,
+	@JoinColumn(name = "mem_serlno", nullable = false, updatable = false,
 			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private MemberMaster memberMaster; // 회원_일련번호
 
