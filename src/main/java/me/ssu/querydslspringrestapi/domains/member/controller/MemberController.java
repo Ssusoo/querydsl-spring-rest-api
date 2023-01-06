@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.ssu.querydslspringrestapi.base.controller.BaseController;
 import me.ssu.querydslspringrestapi.config.util.dto.ApiResponse;
+import me.ssu.querydslspringrestapi.domains.member.application.SignUpMemberService;
 import me.ssu.querydslspringrestapi.domains.member.dto.SignUpMember;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
