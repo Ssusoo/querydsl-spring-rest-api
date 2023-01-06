@@ -39,9 +39,6 @@ public class MemberMaster extends BaseEntity {
 	@Column(name = "mem_mobile_telno", length = 20)
 	private String memberMobileTelephoneNumber; // 회원_모바일_전화번호
 
-	@Column(name = "mem_ci", length = 88)
-	private String memberConnectingInformation; // 회원_CI(연계정보)
-
 	@Column(name = "bas_addr", length = 200)
 	private String basicAddress; // 기본_주소
 
