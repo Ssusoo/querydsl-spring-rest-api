@@ -20,7 +20,7 @@ public class TermsMemberAgreement {
 	private Long termsAgreementSerialNo; // 약관 동의 일련번호
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "himm_mem_serlno", nullable = false, updatable = false,
+	@JoinColumn(name = "mem_serlno", nullable = false, updatable = false,
 			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private MemberMaster memberMaster; // 회원_일련번호
 
