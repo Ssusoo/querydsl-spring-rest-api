@@ -1,5 +1,6 @@
 package me.ssu.querydslspringrestapi.domains.member.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ public class MemberController extends BaseController {
 
 	private final SignUpMemberService signUpMemberService;
 
+	@Operation(summary = "회원가입")
 	@PostMapping("/sign-up")
 	public ApiResponse<Object> createMember(@Valid @RequestBody SignUpMember.Request request) {
 		signUpMemberService.processNewMember(request);
