@@ -2,6 +2,7 @@ package me.ssu.querydslspringrestapi.domains.member.domain;
 
 import lombok.*;
 import me.ssu.querydslspringrestapi.base.domain.BaseEntity;
+import me.ssu.querydslspringrestapi.domains.member.dto.SignUpMember;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -70,4 +71,23 @@ public class MemberMaster extends BaseEntity {
 
 	@Column(name = "wd_dtm")
 	private LocalDateTime withdrawalAt; // 탈퇴_일시
+
+	/**
+	 * 회원 이력 저장
+	 * @param request
+	 * @return
+	 */
+	public static MemberMaster create(SignUpMember.Request request) {
+		return MemberMaster.builder()
+				.memberEmail(request.getMemberEmail())
+				.memberName(request.getMemberName())
+				.memberPassword(request.getMemberPassword())
+				.birthDate(request.getBirthDate())
+				.memberGenderFlag(request.getMemberGenderFlag())
+				.memberMobileTelephoneNumber(request.getMemberMobileTelephoneNumber())
+				.basicAddress(request.getBasicAddress())
+				.detailAddress(request.getDetailAddress())
+				.zipcode(request.getZipcode())
+				.build();
+	}
 }
