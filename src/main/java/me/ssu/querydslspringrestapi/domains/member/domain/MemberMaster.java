@@ -1,6 +1,7 @@
 package me.ssu.querydslspringrestapi.domains.member.domain;
 
 import lombok.*;
+import me.ssu.querydslspringrestapi.base.domain.BaseEntity;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -14,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Getter
-public class MemberMaster {
+public class MemberMaster extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "mem_serlno")
@@ -60,4 +61,16 @@ public class MemberMaster {
 	@LastModifiedDate
 	@Column(name = "upd_dtm", nullable = false)
 	private LocalDateTime updateAt; // 수정_일시
+
+	@Column(name = "dmt_yn", length = 1, nullable = false)
+	private String dormantYn; // 휴면_여부
+
+	@Column(name = "dmt_dtm")
+	private LocalDateTime dormantAt; // 휴먼_일시
+
+	@Column(name = "wd_yn", length = 1, nullable = false)
+	private String withdrawalYn; // 탈퇴_여부
+
+	@Column(name = "wd_dtm")
+	private LocalDateTime withdrawalAt; // 탈퇴_일시
 }
