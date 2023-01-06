@@ -19,8 +19,8 @@ public class SignUpMemberService {
 	@Transactional
 	public void processNewMember(SignUpMember.Request request) {
 		// 회원 이력 입력
-		MemberMaster.create(request);
+		var memberMaster = MemberMaster.create(request);
 		// 회원 이력 저장
-		memberMasterRepository.save();
+		memberMasterRepository.save(memberMaster);
 	}
 }
