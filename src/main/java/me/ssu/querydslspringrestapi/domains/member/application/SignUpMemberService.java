@@ -36,7 +36,7 @@ public class SignUpMemberService {
 	private MemberMaster createNewMember(SignUpMember.Request request) {
 		// 비밀번호 입력 체크
 		if (request.getMemberPassword().equals(request.getCheckMemberPassword())) {
-			throw new BusinessException(ApiResponseCode.INVALID_TYPE_VALUE,
+			throw new BusinessException(ApiResponseCode.INVALID_INPUT_VALUE,
 					"비밀번호가 일치하지 않습니다.");
 		}
 
