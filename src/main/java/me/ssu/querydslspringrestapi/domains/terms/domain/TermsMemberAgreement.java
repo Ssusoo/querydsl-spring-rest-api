@@ -37,4 +37,19 @@ public class TermsMemberAgreement {
 	@CreatedDate
 	@Column(name = "agrmt_dtm", nullable = false)
 	private LocalDateTime agreementAt; // 동의 일시
+
+	/**
+	 * 약관_동의_이력(회원가입) 저장
+	 * @param newMember
+	 * @param terms
+	 * @param agreementYn
+	 * @return
+	 */
+	public static TermsMemberAgreement create(MemberMaster newMember, Terms terms, String agreementYn) {
+		return TermsMemberAgreement.builder()
+				.memberMaster(newMember)
+				.terms(terms)
+				.agreementYn(agreementYn)
+				.build();
+	}
 }
