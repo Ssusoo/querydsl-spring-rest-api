@@ -2,6 +2,7 @@ package me.ssu.querydslspringrestapi.domains.terms.domain;
 
 import lombok.*;
 import me.ssu.querydslspringrestapi.domains.member.domain.MemberMaster;
+import me.ssu.querydslspringrestapi.domains.member.dto.SignUpMember;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -38,4 +39,19 @@ public class TermsAgreementHistory {
 	@CreatedDate
 	@Column(name = "reg_dtm", nullable = false)
 	private LocalDateTime registerAt; // 등록_일시
+
+	/**
+	 * 약관_동의_이력(회원가입) 저장
+	 * @param newMember
+	 * @param terms
+	 * @param termsAgreementYn
+	 * @return
+	 */
+	public static TermsAgreementHistory create(MemberMaster newMember, Terms terms, String termsAgreementYn) {
+		return TermsAgreementHistory.builder()
+				.memberMaster(newMember)
+				.terms(terms)
+				.termsAgreementYn(termsAgreementYn)
+				.build();
+	}
 }
