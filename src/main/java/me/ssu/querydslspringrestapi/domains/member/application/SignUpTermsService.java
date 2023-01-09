@@ -3,6 +3,7 @@ package me.ssu.querydslspringrestapi.domains.member.application;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.ssu.querydslspringrestapi.config.error.DataNotFoundException;
 import me.ssu.querydslspringrestapi.domains.member.domain.MemberMaster;
 import me.ssu.querydslspringrestapi.domains.member.dto.SignUpMember;
 import me.ssu.querydslspringrestapi.domains.terms.domain.Terms;
@@ -29,7 +30,7 @@ public class SignUpTermsService {
 	public void create(MemberMaster newMember, SignUpMember.Request request) {
 		// 약관 조회
 		var terms = termsRepository.findByTermsCodeAndTermsTurnOrderNo(request.getTermsCode(),
-				request.getTermsTurnOrderNo()).orElseThrow();
+				request.getTermsTurnOrderNo()).orElseThrow(DataNotFoundException::new);
 
 		// 약관 회원 동의
 		createTermsAgreementHistory(newMember, request, terms);
