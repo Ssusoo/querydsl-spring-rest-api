@@ -24,6 +24,7 @@ public class SignUpTermsService {
 	private final TermsMemberAgreementRepository termsMemberAgreementRepository;
 	private final TermsRepository termsRepository;
 
+	@Transactional
 	public void create(MemberMaster newMember, SignUpMember.Request request) {
 		// 약관 조회
 		var terms = termsRepository.findByTermsCodeAndTermsTurnOrderNo(request.getTermsCode(),
