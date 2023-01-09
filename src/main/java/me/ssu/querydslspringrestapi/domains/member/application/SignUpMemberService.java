@@ -24,8 +24,8 @@ public class SignUpMemberService {
 		// 회원 이력 입력
 		var newMember = createNewMember(request);
 
-		// 약관 동의 이력
-		signUpTermsService.create(newMember, request);
+		// 약관
+		signUpTermsService.createNewTerms(newMember, request);
 	}
 
 	/**
