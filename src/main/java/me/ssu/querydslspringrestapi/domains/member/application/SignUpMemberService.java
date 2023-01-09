@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SignUpMemberService {
 
 	private final MemberMasterRepository memberMasterRepository;
+	private final SignUpTermsService signUpTermsService;
 
 	@Transactional
 	public void processNewMember(SignUpMember.Request request) {
@@ -24,6 +25,7 @@ public class SignUpMemberService {
 		var newMember = createNewMember(request);
 
 		// 약관 동의 이력
+		signUpTermsService.create(newMember, request);
 	}
 
 	/**
@@ -32,8 +34,6 @@ public class SignUpMemberService {
 	 * @return
 	 */
 	private MemberMaster createNewMember(SignUpMember.Request request) {
-		// 비밀번호 유효성 검사
-
 		// 비밀번호 입력 체크
 		if (request.getMemberPassword().equals(request.getCheckMemberPassword())) {
 			throw new BusinessException(ApiResponseCode.INVALID_TYPE_VALUE,
