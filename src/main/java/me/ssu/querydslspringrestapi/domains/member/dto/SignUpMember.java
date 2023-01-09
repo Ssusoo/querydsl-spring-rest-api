@@ -33,7 +33,9 @@ public class SignUpMember {
 
 		@NotBlank
 		@NotEmpty
-		@Length(min = 8, max = 50)
+		@Length(min = 8, max = 20)
+		@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$",
+				message = "비밀번호는 영문, 숫자, 특수문자로 조합해주세요.")
 		@Schema(defaultValue = "hotmmx123**", description = "회원_비밀번호")
 		private String memberPassword;
 
@@ -49,8 +51,8 @@ public class SignUpMember {
 		@Schema(defaultValue = "남", description = "회원_성별_플래그")
 		private String memberGenderFlag;
 
-		@Pattern(regexp = "^01((?:0|1|[6-9]))-(?:\\d{3}|\\d{4})-\\d{4}$",
-				message = "올바른 전화번호를 입력해주세요.")
+		@Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$",
+				message = "10~11 자리의 숫자만 입력 가능합니다.")
 		@Schema(defaultValue = "010-123-1234", description = "회원_모바일_전화번호")
 		private String memberMobileTelephoneNumber;
 
