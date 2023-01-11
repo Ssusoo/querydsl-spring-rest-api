@@ -65,6 +65,10 @@ server:
   error:
     whitelabel.enabled: false
   shutdown: graceful
+#
+env:
+  domain: ''
+  server-instance-id: ''
 
 management:
   health:
