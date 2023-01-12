@@ -3,12 +3,13 @@ server:
 
 spring:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5432/springrestapi
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://mysql_boot:3306/springweb
     username: ssu
     password: 1234
-    minimum-idle: 1
-    maximum-pool-size: 2
-    pool-name: master
+#    minimum-idle: 1
+#    maximum-pool-size: 2
+#    pool-name: master
   jpa:
     properties:
       hibernate:
