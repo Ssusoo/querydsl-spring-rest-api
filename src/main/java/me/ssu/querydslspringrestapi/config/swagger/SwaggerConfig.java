@@ -20,6 +20,10 @@ public class SwaggerConfig {
 	@Value("${env.domain}")
 	private String domain;
 
+	/**
+	 * Swagger Settings
+	 * @return
+	 */
 	@Bean
 	public OpenAPI swaggerOpenAPI() {
 		SpringDocUtils.getConfig().replaceWithClass(org.springframework.data.domain.Pageable.class,
