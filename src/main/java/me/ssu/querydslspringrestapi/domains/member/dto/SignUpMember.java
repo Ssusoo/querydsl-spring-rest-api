@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -77,7 +78,7 @@ public class SignUpMember {
 		private String checkMemberPassword;
 
 		@Schema(defaultValue = "1988-08-08", description = "생년월일")
-		private Date birthDate;
+		private LocalDateTime birthDate;
 
 		@Schema(defaultValue = "남", description = "회원_성별_플래그")
 		private String memberGenderFlag;
@@ -100,7 +101,7 @@ public class SignUpMember {
 		               String termsAgreementYn, String termsDivisionCommonCode,
 		               String termsExposureCommonCode, String termsKindCommonCode,
 		               String memberEmail, String memberName, String memberPassword,
-		               String checkMemberPassword, Date birthDate, String memberGenderFlag,
+		               String checkMemberPassword, LocalDateTime birthDate, String memberGenderFlag,
 		               String memberMobileTelephoneNumber, String basicAddress,
 		               String detailAddress, String zipcode) {
 			this.termsCode = termsCode;

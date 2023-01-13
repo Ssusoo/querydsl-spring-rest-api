@@ -32,7 +32,7 @@ public class MemberMaster extends BaseEntity {
 	private String memberPassword; // 회원_비밀번호
 
 	@Column(name = "birthymd")
-	private Date birthDate; // 생년월일
+	private LocalDateTime birthDate; // 생년월일
 
 	@Column(name = "mem_gndr_flag", length = 1)
 	private String memberGenderFlag; // 회원_성별_플래그
