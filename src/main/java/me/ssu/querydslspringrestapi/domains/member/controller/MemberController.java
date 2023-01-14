@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.ssu.querydslspringrestapi.base.controller.BaseController;
 import me.ssu.querydslspringrestapi.config.util.dto.ApiResponse;
 import me.ssu.querydslspringrestapi.domains.member.application.MemberSignUpService;
-import me.ssu.querydslspringrestapi.domains.member.dto.SignUpMember;
+import me.ssu.querydslspringrestapi.domains.member.dto.MemberSignUp;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ public class MemberController extends BaseController {
 
 	@Operation(summary = "회원가입")
 	@PostMapping("/sign-up")
-	public ApiResponse<Object> createMember(@Valid @RequestBody SignUpMember.Request request) {
+	public ApiResponse<Object> createMember(@Valid @RequestBody MemberSignUp.Request request) {
 		memberSignUpService.processNewMember(request);
 		return responseJson();
 	}

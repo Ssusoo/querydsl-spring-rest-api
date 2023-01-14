@@ -2,13 +2,12 @@ package me.ssu.querydslspringrestapi.domains.member.domain;
 
 import lombok.*;
 import me.ssu.querydslspringrestapi.base.domain.BaseEntity;
-import me.ssu.querydslspringrestapi.domains.member.dto.SignUpMember;
+import me.ssu.querydslspringrestapi.domains.member.dto.MemberSignUp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "ssu_mem_mst")
@@ -77,7 +76,7 @@ public class MemberMaster extends BaseEntity {
 	 * @param request
 	 * @return
 	 */
-	public static MemberMaster create(SignUpMember.Request request) {
+	public static MemberMaster create(MemberSignUp.Request request) {
 		return MemberMaster.builder()
 				.memberEmail(request.getMemberEmail())
 				.memberName(request.getMemberName())

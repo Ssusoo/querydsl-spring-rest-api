@@ -13,10 +13,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class SignUpMember {
+public class MemberSignUp {
 
 	@Getter
 	public class Request {

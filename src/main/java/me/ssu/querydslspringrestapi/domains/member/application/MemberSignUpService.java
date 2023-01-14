@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.ssu.querydslspringrestapi.config.constant.ApiResponseCode;
 import me.ssu.querydslspringrestapi.config.error.BusinessException;
 import me.ssu.querydslspringrestapi.domains.member.domain.MemberMaster;
-import me.ssu.querydslspringrestapi.domains.member.dto.SignUpMember;
+import me.ssu.querydslspringrestapi.domains.member.dto.MemberSignUp;
 import me.ssu.querydslspringrestapi.domains.member.repository.MemberMasterRepository;
 import me.ssu.querydslspringrestapi.domains.terms.application.TermsSignUpService;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class MemberSignUpService {
 	private final TermsSignUpService termsSignUpService;
 
 	@Transactional
-	public void processNewMember(SignUpMember.Request request) {
+	public void processNewMember(MemberSignUp.Request request) {
 		// 회원 이력 입력
 		var newMember = createNewMember(request);
 
@@ -34,7 +34,7 @@ public class MemberSignUpService {
 	 * @param request
 	 * @return
 	 */
-	private MemberMaster createNewMember(SignUpMember.Request request) {
+	private MemberMaster createNewMember(MemberSignUp.Request request) {
 		// 비밀번호 입력 체크
 		if (request.getMemberPassword().equals(request.getCheckMemberPassword())) {
 			throw new BusinessException(ApiResponseCode.INVALID_INPUT_VALUE,

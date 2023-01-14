@@ -2,7 +2,6 @@ package me.ssu.querydslspringrestapi.domains.terms.domain;
 
 import lombok.*;
 import me.ssu.querydslspringrestapi.domains.member.domain.MemberMaster;
-import me.ssu.querydslspringrestapi.domains.member.dto.SignUpMember;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;

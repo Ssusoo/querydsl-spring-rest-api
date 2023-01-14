@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.ssu.querydslspringrestapi.config.error.DataNotFoundException;
 import me.ssu.querydslspringrestapi.domains.member.domain.MemberMaster;
-import me.ssu.querydslspringrestapi.domains.member.dto.SignUpMember;
+import me.ssu.querydslspringrestapi.domains.member.dto.MemberSignUp;
 import me.ssu.querydslspringrestapi.domains.terms.domain.Terms;
 import me.ssu.querydslspringrestapi.domains.terms.domain.TermsAgreementHistory;
 import me.ssu.querydslspringrestapi.domains.terms.domain.TermsMemberAgreement;
@@ -25,7 +25,7 @@ public class TermsSignUpService {
 	private final TermsRepository termsRepository;
 
 	@Transactional
-	public void createNewTerms(MemberMaster newMember, SignUpMember.Request request) {
+	public void createNewTerms(MemberMaster newMember, MemberSignUp.Request request) {
 		// 약관 조회
 		var terms = termsRepository.findByTermsCodeAndTermsTurnOrderNo(request.getTermsCode(),
 				request.getTermsTurnOrderNo()).orElseThrow(DataNotFoundException::new);
@@ -43,7 +43,7 @@ public class TermsSignUpService {
 	 * @param request
 	 * @param terms
 	 */
-	private void createTermsMemberAgreement(MemberMaster newMember, SignUpMember.Request request, Terms terms) {
+	private void createTermsMemberAgreement(MemberMaster newMember, MemberSignUp.Request request, Terms terms) {
 		var processNewTermsMemberAgreement = TermsMemberAgreement.create(newMember, terms, request.getAgreementYn());
 		termsMemberAgreementRepository.save(processNewTermsMemberAgreement);
 	}
@@ -54,7 +54,7 @@ public class TermsSignUpService {
 	 * @param request
 	 * @param terms
 	 */
-	private void createTermsAgreementHistory(MemberMaster newMember, SignUpMember.Request request, Terms terms) {
+	private void createTermsAgreementHistory(MemberMaster newMember, MemberSignUp.Request request, Terms terms) {
 		var processNewTermsAgreementHistory = TermsAgreementHistory
 				.create(newMember, terms, request.getTermsAgreementYn());
 		termsAgreementHistoryRepository.save(processNewTermsAgreementHistory);
