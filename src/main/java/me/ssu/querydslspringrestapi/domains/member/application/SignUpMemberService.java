@@ -7,6 +7,7 @@ import me.ssu.querydslspringrestapi.config.error.BusinessException;
 import me.ssu.querydslspringrestapi.domains.member.domain.MemberMaster;
 import me.ssu.querydslspringrestapi.domains.member.dto.SignUpMember;
 import me.ssu.querydslspringrestapi.domains.member.repository.MemberMasterRepository;
+import me.ssu.querydslspringrestapi.domains.terms.application.TermsSignUpService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SignUpMemberService {
 
 	private final MemberMasterRepository memberMasterRepository;
-	private final SignUpTermsService signUpTermsService;
+	private final TermsSignUpService termsSignUpService;
 
 	@Transactional
 	public void processNewMember(SignUpMember.Request request) {
@@ -25,7 +26,7 @@ public class SignUpMemberService {
 		var newMember = createNewMember(request);
 
 		// 약관
-		signUpTermsService.createNewTerms(newMember, request);
+		termsSignUpService.createNewTerms(newMember, request);
 	}
 
 	/**

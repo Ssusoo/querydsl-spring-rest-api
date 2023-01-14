@@ -1,4 +1,4 @@
-package me.ssu.querydslspringrestapi.domains.member.application;
+package me.ssu.querydslspringrestapi.domains.terms.application;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class SignUpTermsService {
+public class TermsSignUpService {
 
 	private final TermsAgreementHistoryRepository termsAgreementHistoryRepository;
 	private final TermsMemberAgreementRepository termsMemberAgreementRepository;
