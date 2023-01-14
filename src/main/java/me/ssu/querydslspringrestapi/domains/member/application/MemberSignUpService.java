@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class SignUpMemberService {
+public class MemberSignUpService {
 
 	private final MemberMasterRepository memberMasterRepository;
 	private final TermsSignUpService termsSignUpService;
