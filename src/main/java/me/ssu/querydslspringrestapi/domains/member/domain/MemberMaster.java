@@ -2,12 +2,16 @@ package me.ssu.querydslspringrestapi.domains.member.domain;
 
 import lombok.*;
 import me.ssu.querydslspringrestapi.base.domain.BaseEntity;
+import me.ssu.querydslspringrestapi.config.constant.CommonConstant;
 import me.ssu.querydslspringrestapi.domains.member.dto.MemberSignUp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
+import static me.ssu.querydslspringrestapi.config.constant.CommonConstant.Yn.N;
+import static me.ssu.querydslspringrestapi.config.constant.CommonConstant.Yn.Y;
 
 @Entity
 @Table(name = "ssu_mem_mst")
@@ -87,6 +91,9 @@ public class MemberMaster extends BaseEntity {
 				.basicAddress(request.getBasicAddress())
 				.detailAddress(request.getDetailAddress())
 				.zipcode(request.getZipcode())
+				.useYn(Y)
+				.dormantYn(N)
+				.withdrawalYn(N)
 				.build();
 	}
 }
