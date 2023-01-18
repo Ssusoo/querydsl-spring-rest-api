@@ -54,6 +54,8 @@ feign:
 #FULL : Request와 Response의 Header, Body 그리고 메타데이터를 로깅합니다.
 
 #external-api
+external-api:
+  push: 'http://localhost:8081'
 
 #springdoc-api-docs
 springdoc:
