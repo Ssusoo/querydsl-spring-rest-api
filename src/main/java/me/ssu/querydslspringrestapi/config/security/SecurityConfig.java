@@ -28,14 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.csrf().disable()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
-//				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//				.accessDeniedHandler(jwtAccessDeniedHandler)
-//				.and()
 				.headers().frameOptions().disable()
 				.and()
 				.authorizeRequests()
 				.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 				.antMatchers("/v1/member/sign-up/**").permitAll()
+				.antMatchers("/v1/terms/**").permitAll()
 				.antMatchers("/api-docs/**", "/v3/api-docs/**").permitAll()
 				.anyRequest().authenticated();
 	}
