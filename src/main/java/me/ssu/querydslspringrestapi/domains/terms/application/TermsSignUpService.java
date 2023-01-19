@@ -27,14 +27,12 @@ public class TermsSignUpService {
 	@Transactional
 	public void createNewTerms(MemberMaster newMember, MemberSignUp.Request request) {
 		// 약관 조회
-		var terms = termsRepository.findByTermsCodeAndTermsTurnOrderNo(request.getTermsCode(),
-				request.getTermsTurnOrderNo()).orElseThrow(DataNotFoundException::new);
 
 		// 약관 회원 동의
-		createTermsAgreementHistory(newMember, request, terms);
+//		createTermsAgreementHistory(newMember, request, terms);
 
 		// 약관 동의 이력
-		createTermsMemberAgreement(newMember, request, terms);
+//		createTermsMemberAgreement(newMember, request, terms);
 	}
 
 	/**
@@ -43,10 +41,10 @@ public class TermsSignUpService {
 	 * @param request
 	 * @param terms
 	 */
-	private void createTermsMemberAgreement(MemberMaster newMember, MemberSignUp.Request request, Terms terms) {
-		var processNewTermsMemberAgreement = TermsMemberAgreement.create(newMember, terms, request.getAgreementYn());
-		termsMemberAgreementRepository.save(processNewTermsMemberAgreement);
-	}
+//	private void createTermsMemberAgreement(MemberMaster newMember, MemberSignUp.Request request, Terms terms) {
+//		var processNewTermsMemberAgreement = TermsMemberAgreement.create(newMember, terms, request.getAgreementYn());
+//		termsMemberAgreementRepository.save(processNewTermsMemberAgreement);
+//	}
 
 	/**
 	 * 약관_동의_이력
@@ -54,9 +52,9 @@ public class TermsSignUpService {
 	 * @param request
 	 * @param terms
 	 */
-	private void createTermsAgreementHistory(MemberMaster newMember, MemberSignUp.Request request, Terms terms) {
-		var processNewTermsAgreementHistory = TermsAgreementHistory
-				.create(newMember, terms, request.getTermsAgreementYn());
-		termsAgreementHistoryRepository.save(processNewTermsAgreementHistory);
-	}
+//	private void createTermsAgreementHistory(MemberMaster newMember, MemberSignUp.Request request, Terms terms) {
+//		var processNewTermsAgreementHistory = TermsAgreementHistory
+//				.create(newMember, terms, request.getTermsAgreementYn());
+//		termsAgreementHistoryRepository.save(processNewTermsAgreementHistory);
+//	}
 }
