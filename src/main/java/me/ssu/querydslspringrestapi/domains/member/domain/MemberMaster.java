@@ -91,9 +91,6 @@ public class MemberMaster extends BaseEntity {
 				.basicAddress(request.getBasicAddress())
 				.detailAddress(request.getDetailAddress())
 				.zipcode(request.getZipcode())
-				.useYn(Y)
-				.dormantYn(N)
-				.withdrawalYn(N)
 				.build();
 	}
 }
