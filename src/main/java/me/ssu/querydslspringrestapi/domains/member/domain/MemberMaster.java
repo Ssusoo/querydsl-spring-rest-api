@@ -75,6 +75,13 @@ public class MemberMaster extends BaseEntity {
 	@Column(name = "wd_dtm")
 	private LocalDateTime withdrawalAt; // 탈퇴_일시
 
+	@PrePersist
+	public void prePersist() {
+		useYn = Y; // 사용 여부
+		dormantYn = N; // 휴면_여부
+		withdrawalYn = N; // 탈퇴_여부
+	}
+
 	/**
 	 * 회원 이력 저장
 	 * @param request
